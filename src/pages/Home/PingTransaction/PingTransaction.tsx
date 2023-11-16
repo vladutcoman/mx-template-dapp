@@ -1,19 +1,55 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useWebWalletLogin } from '@multiversx/sdk-dapp/hooks/login/useWebWalletLogin';
+import { useGetLoginInfo } from 'hooks';
 
+/**
+ * This is just the skeleton
+ * In the final version, all the side-effects will be moved to a custom hook
+ */
 const PingTransaction = () => {
-  const [text, setText] = useState('Click me to change text');
+  const [token, setToken] = useState<string>('');
+  const [signature, setSignature] = useState<string>('');
+
+  useEffect(() => {
+    useWebWalletLogin({ token });
+  }, [token]);
+
+  useEffect(() => {
+    if (signature) {
+      // Do Transaction
+      return;
+    } else {
+      // Alert user that the transaction was delcined
+    }
+  }, [signature]);
 
   const onClick = () => {
-    console.log('onClick');
-
     // @ts-ignore
-    window.ReactNativeWebView.postMessage('aaaa');
-    console.log('onClick2');
+    if (window.ReactNativeWebView) {
+      // Initiate transaction and get signature from RN App
+
+      // @ts-ignore
+      window.ReactNativeWebView.postMessage('ping');
+      console.log('onClick2');
+    }
   };
 
   window.addEventListener('message', (message) => {
-    console.log(message.data); // Wayne is coming!!!
-    setText(message.data);
+    /**
+     * First take the authToken
+     */
+
+    if (token === '') {
+      setToken(message.data);
+      return;
+    }
+
+    /**
+     * Token was populated -> the signature si next.
+     * Add it to the transaction
+     */
+    setSignature(message.data);
+    
   });
 
   return (
