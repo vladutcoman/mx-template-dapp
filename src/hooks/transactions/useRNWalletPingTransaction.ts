@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useWebWalletLogin } from "@multiversx/sdk-dapp/hooks/login/useWebWalletLogin";
 
-import { sendTransactions } from "helpers";
-import { Transaction } from "@multiversx/sdk-core/out";
-
 const useRNWalletPingTransaction = () => {
   const [token, setToken] = useState<string>('');
   const tokenRef = useRef<string>('');
@@ -13,7 +10,6 @@ const useRNWalletPingTransaction = () => {
   useEffect(() => {
     const handleMessage = (message: MessageEvent) => {
       if (tokenRef.current === '') {
-        alert('setToken');
         tokenRef.current = message.data;
         setToken(message.data);
         return;
@@ -30,8 +26,7 @@ const useRNWalletPingTransaction = () => {
 
   const handleTransaction = async (signature: string) => {
     if (signature) {
-      // Do Transaction
-      alert(`do transaction with siganture: ${signature}`);
+      // TODO: Send Transaction
     }
   }
 
