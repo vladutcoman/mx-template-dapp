@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from "react";
-import { useWebWalletLogin } from "@multiversx/sdk-dapp/hooks/login/useWebWalletLogin";
+import { useEffect, useRef, useState } from 'react';
+import { useWebWalletLogin } from '@multiversx/sdk-dapp/hooks/login/useWebWalletLogin';
 
 const useRNWalletPingTransaction = () => {
   const [token, setToken] = useState<string>('');
@@ -14,6 +14,9 @@ const useRNWalletPingTransaction = () => {
   }, [token]);
 
   useEffect(() => {
+    /**
+     * TODO: Test this logic when the flow is complete and see if it can be improved
+     */
     const handleMessage = (message: MessageEvent) => {
       if (tokenRef.current === '') {
         tokenRef.current = message.data;
@@ -32,13 +35,21 @@ const useRNWalletPingTransaction = () => {
 
   const handleTransaction = async (signature: string) => {
     if (signature) {
-      // TODO: Sign & Send Transaction
+      /**
+       * TODO: Sign & Send Transaction
+       * At the moment, I am thinking of signing the transaction directly (not using any service & from these dapp)
+       * Very similar with what I did in the Wallet App
+       * transaction.applySignature(Buffer.from(signature, 'hex'));
+       */
     }
-  }
+  };
 
   const handleOnPing = () => {
     // @ts-ignore
     if (window.ReactNativeWebView) {
+      /**
+       * TODO: Init transaction
+       */
       // @ts-ignore
       window.ReactNativeWebView.postMessage('ping');
     }
