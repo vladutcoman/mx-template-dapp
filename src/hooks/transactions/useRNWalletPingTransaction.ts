@@ -5,7 +5,13 @@ const useRNWalletPingTransaction = () => {
   const [token, setToken] = useState<string>('');
   const tokenRef = useRef<string>('');
 
-  useWebWalletLogin({ token });
+  const [initiateLogin, _] = useWebWalletLogin({ token });
+
+  useEffect(() => {
+    if (token) {
+      initiateLogin();
+    }
+  }, [token]);
 
   useEffect(() => {
     const handleMessage = (message: MessageEvent) => {
@@ -26,11 +32,11 @@ const useRNWalletPingTransaction = () => {
 
   const handleTransaction = async (signature: string) => {
     if (signature) {
-      // TODO: Send Transaction
+      // TODO: Sign & Send Transaction
     }
   }
 
-  const handleOnClick = () => {
+  const handleOnPing = () => {
     // @ts-ignore
     if (window.ReactNativeWebView) {
       // @ts-ignore
@@ -38,7 +44,7 @@ const useRNWalletPingTransaction = () => {
     }
   };
 
-  return { handleOnClick };
+  return { handleOnPing };
 };
 
 export default useRNWalletPingTransaction;
