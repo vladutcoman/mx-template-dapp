@@ -3,6 +3,7 @@ import { Label } from 'components/Label';
 import { ExplorerLink } from 'components/sdkDappComponents';
 import { useGetNetworkConfig } from 'hooks';
 import { getTransactionUrl, useTransactionOutcome } from './helpers';
+import { useState } from 'react';
 
 export const Transaction = () => {
   const { network } = useGetNetworkConfig();

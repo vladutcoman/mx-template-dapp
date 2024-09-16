@@ -1,5 +1,6 @@
 import { AuthRedirectWrapper, PageWrapper } from 'wrappers';
 import { Transaction } from './Transaction';
+import PingTransaction from './PingTransaction/PingTransaction';
 
 export const Home = () => {
   return (
@@ -32,7 +33,8 @@ export const Home = () => {
                   blockchain.
                 </p>
               </div>
-              <Transaction />
+              {/* <Transaction /> */}
+              <PingTransaction />
             </div>
           </div>
           <div className='h-4/6 bg-mvx-white bg-contain bg-no-repeat w-1/2 bg-center' />
